@@ -1,0 +1,95 @@
+<app-topmenu></app-topmenu>
+<div class="loading-shade" *ngIf="running">
+  <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+</div>
+    <form>
+      <h2>Look Up Request in Ares</h2>
+      <p>Enter the ID number of the reserve request in Ares.</p>
+      <section class="settings-section">
+        <mat-form-field>
+          <mat-label>Identifier</mat-label>
+          <input matInput [formControl]="identifier">
+        </mat-form-field>
+      </section>
+    </form>
+    <div class="cloudapp-actions">
+		<button mat-flat-button type="button" color="secondary" (click)="clearForm()">Clear</button>
+      <button mat-flat-button type="button" color="primary" (click)="search(identifier.value)">Search</button>
+    </div>  
+    
+    <mat-card *ngIf="record">
+      <mat-card-header>
+        <mat-card-title>Ares Item Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul>
+          <li><strong>Title: </strong> {{ record.title }}</li>
+          <li><strong>Author: </strong>{{ record.author }}</li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+
+	  <mat-card *ngIf="aresCourse">
+      <mat-card-header>
+        <mat-card-title>Ares Course Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul>
+          <li><strong>Course Name: </strong> {{ aresCourse.name }}</li>
+          <li><strong>Instructor: </strong>{{ aresCourse.instructorDisplayName }}</li>
+        </ul>
+      </mat-card-content>
+	  </mat-card>
+	  <mat-card *ngIf="!almaCourse && aresCourse">
+      <mat-card-header>
+	  <mat-card-title>No Matching Course in Alma</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Please be sure the corresponding course exists in Alma and that the value in the Ares Registrar Course Id field is listed as one of the searchable IDs for the Alma course.</p>
+      </mat-card-content>
+    </mat-card> 
+	  <mat-card *ngIf="almaCourse">
+      <mat-card-header>
+	  <mat-card-title>Alma Course Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul>
+          <li><strong>Course Name: </strong> {{ almaCourse.name }}</li>
+          <li><strong>Course Code: </strong>{{ almaCourse.code }}</li>
+        </ul>
+      </mat-card-content>
+    </mat-card> 
+	<form>
+	<div *ngIf="almaCourse && readingLists && readingLists.reading_list && readingLists.reading_list.length > 1">
+      <h2>Place on reserve</h2>
+	  <p>Choose a reading list.</p>
+      <section class="settings-section">
+        <mat-form-field>
+          <mat-label>Reading List</mat-label>
+          <mat-select [formControl]="readingLists.reading_list">
+		  <mat-option *ngFor="let list of readingLists.reading_list" [value]=list.id>{{list.name}}</mat-option>
+		  </mat-select>
+        </mat-form-field>
+	<div class="cloudapp-actions">
+      <button mat-flat-button type="button" color="primary" (click)="placeOnReserve(identifier.value, readingLists.value)">Place on Reserve</button>
+    </div> 
+      </section>
+	</div>
+	
+	<div *ngIf="almaCourse && readingLists.reading_list && readingLists.reading_list.length == 1">
+      <h2>Place on reserve</h2>
+	  <p>Course has exactly 1 reading list: {{readingLists.reading_list[0].name}}. Item will be placed on that reading list.</p>
+	  <div class="cloudapp-actions">
+      <button mat-flat-button type="button" color="primary" (click)="placeOnReserve(identifier.value, readingLists.reading_list[0].id)">Place on Reserve</button>
+    </div> 
+	</div>
+	
+	<div *ngIf="almaCourse && readingLists.reading_list == null">
+      <h2>Place on reserve</h2>
+	  <p>Course does not yet have a reading list. A new reading list will be created.</p>
+	  <div class="cloudapp-actions">
+      <button mat-flat-button type="button" color="primary" (click)="placeOnReserveAndCreateList(identifier.value)">Place on Reserve</button>
+    </div> 
+	</div>
+	
+	</form>

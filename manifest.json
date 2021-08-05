@@ -1,0 +1,15 @@
+{
+   "id": "ares-alma-connector",
+   "title": "Ares-Alma Connector",
+   "subtitle": "Connect a physical item in Alma to a reserve request in Ares",
+   "author": "Grinnell College Libraries",
+   "pages": {
+      "settings": "/#/settings",
+      "config": "/#/config"
+   },
+   "contentSecurity": {
+      "connectSrc": [
+         "https://grinnell.ares.atlas-sys.com/"
+      ]
+   }
+}
