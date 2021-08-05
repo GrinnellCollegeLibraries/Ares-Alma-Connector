@@ -1,6 +1,6 @@
-This is an ***alpha*** version of an Ex Libris Cloud App that facilitates syncing reserve items between the [Ares reserves system] (https://www.atlas-sys.com/ares) and [Ex Libris Alma] (https://exlibrisgroup.com/products/alma-library-services-platform/).
+This is an ***alpha*** version of an Ex Libris Cloud App that facilitates syncing reserve items between the <a href="https://www.atlas-sys.com/ares">Ares reserves system</a> and <a href="https://exlibrisgroup.com/products/alma-library-services-platform/">Ex Libris Alma</a>.
 
-It runs as an [Ex Libris Cloud App] (https://developers.exlibrisgroup.com/cloudapps/). Since it has not yet been published to the Ex Libris App Center, if you want to try it out you'll need to [use these instructions] (https://developers.exlibrisgroup.com/cloudapps/started/#existing) to run it locally.
+It runs as an <a href="https://developers.exlibrisgroup.com/cloudapps/">Ex Libris Cloud App</a>. Since it has not yet been published to the Ex Libris App Center, if you want to try it out you'll need to <a href="https://developers.exlibrisgroup.com/cloudapps/started/#existing">use these instructions</a> to run it locally.
 
 After installation, go into settings by clicking on the three-dot menu and then the gear icon. Enter the URL of your Ares server and your Ares API key. If you do not have an API key, you can generate one in the Ares Customization Manager.
 
