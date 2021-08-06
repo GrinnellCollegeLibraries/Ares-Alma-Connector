@@ -104,8 +104,8 @@ export class AresComponent implements OnInit {
 	
 	createListAndAdd() {
 		this.readingListObj = `{
-			"code": "${this.almaCourse.code}",
-			"name": "${this.almaCourse.code}",
+			"code": "${this.almaCourse.code}-${this.almaCourse.section}",
+			"name": "${this.almaCourse.code}-${this.almaCourse.section}",
 			"due_back_date": "${this.almaCourse.end_date}",
 			"status": {
 				"value": "Complete"
