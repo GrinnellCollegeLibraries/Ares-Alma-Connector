@@ -14,5 +14,5 @@ To use the app:
 1. Navigate to the Alma record for the requested item, preferably by doing a physical item search by barcode and scanning in the item.
 2. Open the Ares-Alma-Connector Cloud App and enter the ID number for the Ares request.
 3. Confirm that the item and course information that appears is correct.
-4. If multiple reading lists for the course exist in Alma, choose a reading list. (***Note that the multiple reading list functionality has not been extensively tested.***)
+4. If multiple reading lists for the course exist in Alma, choose a reading list.
 5. Click "Place on Reserve." This will route the item in Ares to the status "Available at Reserve Desk" and will add it to the course's reading list in Alma.
