@@ -35,6 +35,7 @@ export class AresComponent implements OnInit {
   almaReadingList: any;
   almaCourseId: any;
   newReadingList: any;
+  selectedReadingList: any;
 
   constructor(
     private appService: AppService,
@@ -99,7 +100,11 @@ export class AresComponent implements OnInit {
 
 	placeOnReserve(aresItemId, almaReadingListId) {
 		this.routeInAres(aresItemId);
-		this.addToList(almaReadingListId, this.almaCourse.id);
+		if (almaReadingListId == 'use_selected_list') {
+			this.addToList(this.selectedReadingList, this.almaCourse.id);
+		} else {
+			this.addToList(almaReadingListId, this.almaCourse.id);
+		}
 	}
 	
 	createListAndAdd() {
@@ -170,6 +175,11 @@ export class AresComponent implements OnInit {
 		this.aresCourse = null;
 		this.almaCourse = null;
 		this.identifier.reset();
+	}
+	
+	changeValue(value) {
+		this.selectedReadingList = value;
+		console.log(this.selectedReadingList);
 	}
 	
  }

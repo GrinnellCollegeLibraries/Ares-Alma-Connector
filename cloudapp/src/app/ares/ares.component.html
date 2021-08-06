@@ -66,12 +66,12 @@
       <section class="settings-section">
         <mat-form-field>
           <mat-label>Reading List</mat-label>
-          <mat-select [formControl]="readingLists.reading_list">
+          <mat-select (valueChange)="changeValue($event)" [formControl]="readingLists.reading_list">
 		  <mat-option *ngFor="let list of readingLists.reading_list" [value]=list.id>{{list.name}}</mat-option>
 		  </mat-select>
         </mat-form-field>
 	<div class="cloudapp-actions">
-      <button mat-flat-button type="button" color="primary" (click)="placeOnReserve(identifier.value, readingLists.value)">Place on Reserve</button>
+      <button mat-flat-button type="button" color="primary" (click)="placeOnReserve(identifier.value, 'use_selected_list')">Place on Reserve</button>
     </div> 
       </section>
 	</div>
