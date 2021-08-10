@@ -8,18 +8,14 @@ import { MaterialModule, CloudAppTranslateModule, AlertModule, MenuModule } from
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MainComponent } from './main/main.component';
 import { SettingsComponent } from './settings/settings.component';
-import { ConfigurationComponent } from './configuration/configuration.component';
 import { AresComponent } from './ares/ares.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
     SettingsComponent,
     AresComponent,
-    ConfigurationComponent
   ],
   imports: [
     MaterialModule,

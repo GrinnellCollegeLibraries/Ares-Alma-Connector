@@ -4,9 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Settings } from '../models/settings';
-import { Configuration } from '../models/configuration';
 import { Subscription } from 'rxjs';
-import { CloudAppEventsService, AlertService, CloudAppSettingsService, CloudAppConfigService, CloudAppRestService, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib';
+import { CloudAppEventsService, AlertService, CloudAppSettingsService, CloudAppRestService, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib';
 
 @Component({
   selector: 'app-ares',
@@ -19,7 +18,6 @@ export class AresComponent implements OnInit {
   record: any;
   aresCourse: any;
   almaCourse: any;
-  private config: any;
   settings: Settings;
   identifier = new FormControl('');
   AresItemUrl: any;
@@ -43,13 +41,11 @@ export class AresComponent implements OnInit {
     private http: HttpClient,
     private alert: AlertService,
 	private settingsService: CloudAppSettingsService,
-	private configService: CloudAppConfigService,
 	private restService: CloudAppRestService
   ) { }
 
   ngOnInit() {
     this.appService.setTitle('Reaching out');
-	 this.configService.get().subscribe( config => {this.config = config as Configuration; }); 
 	 this.settingsService.get().subscribe( settings => {this.settings = settings as Settings; }); 
 	 this.pageLoad$ = this.eventsService.onPageLoad( pageInfo => {
 		const entities = (pageInfo.entities||[]).filter(e=>e.type==EntityType.ITEM);
