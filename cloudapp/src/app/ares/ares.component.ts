@@ -64,7 +64,6 @@ export class AresComponent implements OnInit {
 		this.aresCourseLookup(this.record.courseId);
 	}		, 
 	err => this.alert.error(`Record does not exist`));
-	this.running = false;
   }
   
   aresCourseLookup(id) {
@@ -87,20 +86,25 @@ export class AresComponent implements OnInit {
 	  this.restService.call(`/courses/${id}/reading-lists`).subscribe( res => {
 		  this.readingLists = res;
 	  }, err => this.alert.error(`Problem with course reading lists`) );
+	  this.running = false;
   }
 
 	placeOnReserveAndCreateList(aresItemId) {
+		this.running = true;
 		this.routeInAres(aresItemId);
 		this.createListAndAdd();
+		this.running = false;
 	}
 
 	placeOnReserve(aresItemId, almaReadingListId) {
+		this.running = true;
 		this.routeInAres(aresItemId);
 		if (almaReadingListId == 'use_selected_list') {
 			this.addToList(this.selectedReadingList, this.almaCourse.id);
 		} else {
 			this.addToList(almaReadingListId, this.almaCourse.id);
 		}
+		this.running = false;
 	}
 	
 	createListAndAdd() {
