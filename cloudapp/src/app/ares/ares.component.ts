@@ -63,7 +63,11 @@ export class AresComponent implements OnInit {
 		this.record = res;
 		this.aresCourseLookup(this.record.courseId);
 	}		, 
-	err => this.alert.error(`Record does not exist`));
+	err => { 
+			this.alert.error(`Record does not exist`);
+			this.running = false;
+		}
+	);
   }
   
   aresCourseLookup(id) {
@@ -72,14 +76,22 @@ export class AresComponent implements OnInit {
 	this.http.get(this.AresCourseUrl, {headers: {'X-ARES-API-KEY': this.settings.AresApiKey}}).subscribe( res => {
 		this.aresCourse = res;
 		this.almaCourseLookup(this.aresCourse.registrarCourseId);
-	}, err => this.alert.error(`Course does not exist in Ares`));
+	}, err => {
+		this.alert.error(`Course does not exist in Ares`);
+		this.running = false;
+	}
+	);
   }
   
   almaCourseLookup(id) {
-	  this.restService.call(`/courses?q=searchable_ids~${id}`).subscribe( res => {
+	this.restService.call(`/courses?q=searchable_ids~${id}`).subscribe( res => {
 		  this.almaCourse = res.course[0];
 		  this.readingListLookup(this.almaCourse.id);
-	  }, err => this.alert.error(`No matching course in Alma`) );
+	  }, err => {
+		  this.alert.error(`No matching course in Alma`);
+		  this.running = false;		  
+	  }
+	);
   }
   
   readingListLookup(id) {

@@ -1,21 +1,13 @@
-<div class="back">
-  <button mat-raised-button color="secondary" [routerLink]="['']"><mat-icon>arrow_back</mat-icon>Back</button>
-</div>
-
-<app-topmenu>
-  <div buttons>
+<div class="cloudapp-actions">
+<button mat-raised-button color="secondary" [routerLink]="['']"><mat-icon>arrow_back</mat-icon>Back</button>
     <button mat-flat-button type="button" color="primary" (click)="save()" [disabled]="!(form?.dirty)">Save</button>
   </div>
-</app-topmenu>
+
 <div class="loading-shade" *ngIf="saving">
   <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
 </div>
 <div *ngIf="form">
   <form [formGroup]="form">
-    <section class="settings-section">
-	  <mat-label>Reserve Locations:</mat-label>
-      <input matInput formControlName="reserveLocs" />
-    </section>
 	<section class="settings-section">
 	  <mat-label>Ares URL:</mat-label>
       <input matInput formControlName="AresUrl" />
