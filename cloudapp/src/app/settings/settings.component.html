@@ -9,12 +9,16 @@
 <div *ngIf="form">
   <form [formGroup]="form">
 	<section class="settings-section">
-	  <mat-label>Ares URL:</mat-label>
+	  <mat-label>{{ 'settings.url' | translate }}:</mat-label>
       <input matInput formControlName="AresUrl" />
     </section>
 	<section class="settings-section">
-	  <mat-label>Ares API Key:</mat-label>
+	  <mat-label>{{ 'settings.api_key' | translate }}:</mat-label>
       <input matInput formControlName="AresApiKey" />
+    </section>
+	<section class="settings-section">
+	  <mat-label>{{ 'settings.linking_field' | translate }}:</mat-label>
+      <input matInput formControlName="AresLinkingField" />
     </section>
   </form>
 </div>

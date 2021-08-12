@@ -1,11 +1,12 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AppService } from '../app.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Settings } from '../models/settings';
 import { Subscription } from 'rxjs';
 import { CloudAppEventsService, AlertService, CloudAppSettingsService, CloudAppRestService, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-ares',
@@ -57,7 +58,7 @@ export class AresComponent implements OnInit {
 
   search(id) {
 	this.running = true;
-    this.record = null;
+    this.record = null; 
 	this.AresItemUrl = `${this.settings.AresUrl}/ares/webapi/Items/${id}`;
     this.http.get(this.AresItemUrl, {headers: {'X-ARES-API-KEY': this.settings.AresApiKey}}).subscribe( res => {
 		this.record = res;
@@ -75,7 +76,7 @@ export class AresComponent implements OnInit {
 	this.AresCourseUrl = `${this.settings.AresUrl}/ares/webapi/Courses/${id}`;  
 	this.http.get(this.AresCourseUrl, {headers: {'X-ARES-API-KEY': this.settings.AresApiKey}}).subscribe( res => {
 		this.aresCourse = res;
-		this.almaCourseLookup(this.aresCourse.registrarCourseId);
+		this.almaCourseLookup(this.aresCourse[this.settings.AresLinkingField]);
 	}, err => {
 		this.alert.error(`Course does not exist in Ares`);
 		this.running = false;

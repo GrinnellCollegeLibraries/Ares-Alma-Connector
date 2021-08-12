@@ -3,6 +3,7 @@ import { AppService } from '../app.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AlertService, CloudAppSettingsService, FormGroupUtil } from '@exlibris/exl-cloudapp-angular-lib';
 import { Settings } from '../models/settings';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings',
