@@ -65,7 +65,7 @@ export class AresComponent implements OnInit {
 		this.aresCourseLookup(this.record.courseId);
 	}		, 
 	err => { 
-			this.alert.error(`Record does not exist`);
+			this.alert.error(`{{ 'alert.no_record' | translate }}`);
 			this.running = false;
 		}
 	);
@@ -78,7 +78,7 @@ export class AresComponent implements OnInit {
 		this.aresCourse = res;
 		this.almaCourseLookup(this.aresCourse[this.settings.AresLinkingField]);
 	}, err => {
-		this.alert.error(`Course does not exist in Ares`);
+		this.alert.error(`{{ 'alert.no_ares_course' | translate }}`);
 		this.running = false;
 	}
 	);
@@ -89,7 +89,7 @@ export class AresComponent implements OnInit {
 		  this.almaCourse = res.course[0];
 		  this.readingListLookup(this.almaCourse.id);
 	  }, err => {
-		  this.alert.error(`No matching course in Alma`);
+		  this.alert.error(`{{ 'alert.no_alma_course' | translate }}`);
 		  this.running = false;		  
 	  }
 	);
@@ -98,7 +98,7 @@ export class AresComponent implements OnInit {
   readingListLookup(id) {
 	  this.restService.call(`/courses/${id}/reading-lists`).subscribe( res => {
 		  this.readingLists = res;
-	  }, err => this.alert.error(`Problem with course reading lists`) );
+	  }, err => this.alert.error(`{{ 'alert.list_error' | translate }}`) );
 	  this.running = false;
   }
 
@@ -141,7 +141,7 @@ export class AresComponent implements OnInit {
 				this.almaReadingList = res;
 				this.almaCourseId =  this.almaReadingList.link.split("/")[4];
 				this.addToList(this.almaReadingList.id, this.almaCourseId);
-			}, err => this.alert.error(`Problem creating reading list. Check to be sure a reading list with this course code does not already exist.`) );
+			}, err => this.alert.error(`{{ 'alert.list_create_error' | translate }}`) );
 	}
 	
 	addToList(almaReadingListId, almaCourseId) {
@@ -168,8 +168,8 @@ export class AresComponent implements OnInit {
 			}).subscribe( res => {
 				this.almaResult = res;
 				console.log(this.almaResult);
-				this.alert.success(`Item added to reading list`);
-			}, err => this.alert.error(`Problem adding item to reading list`) );
+				this.alert.success(`{{ 'alert.added' | translate }}`);
+			}, err => this.alert.error(`{{ 'alert.added_error' | translate }}`) );
 	}
 	
 	routeInAres(aresItemId) {
@@ -177,9 +177,9 @@ export class AresComponent implements OnInit {
 		this.status = {'newStatus':'Item Available at Reserve Desk'};
 		this.http.post(this.AresRouteUrl, this.status, {headers: {'X-ARES-API-KEY': this.settings.AresApiKey, 'Content-Type': 'application/json'}}).subscribe( res => {
 			this.route = res;
-			this.alert.success(`New Ares status: ${this.route.currentStatus}`);
+			this.alert.success(`{{ 'alert.new_ares_status' | translate }}: ${this.route.currentStatus}`);
 			this.clearForm();
-		}, err => this.alert.error(`Error: ${err.statusText}`) );
+		}, err => this.alert.error(`{{ 'alert.error' | translate }}: ${err.statusText}`) );
 	}
 		
 	

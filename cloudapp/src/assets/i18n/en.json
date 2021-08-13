@@ -26,6 +26,17 @@
 		"please_check": "Please be sure the corresponding course exists in Alma and that the value in the Ares Linking Field in Settings is listed as one of the searchable IDs for the Alma course.",
 		"alma_course": "Alma Course Information",
 		"course_code": "Course Code:"
+	},
+	"alert": {
+		"no_record": "Record does not exist",
+		"no_ares_course": "Course does not exist in Ares",
+		"no_alma_course": "No matching course in Alma",
+		"list_error": "Problem with course reading lists",
+		"list_create_error": "Problem creating reading list. Check to be sure a reading list with this course code does not already exist.",
+		"added": "Item added to reading list",
+		"added_error": "Problem adding item to reading list",
+		"new_ares_status": "New Ares status:",
+		"error": "Error:"
 	}
 }
 	
