@@ -1,20 +1,18 @@
     <div class="cloudapp-actions">
-		<button mat-flat-button type="button" color="secondary" (click)="clearForm()">Clear</button>
-      <button mat-flat-button type="button" color="primary" (click)="search(identifier.value)">Search</button>
-	  <button *ngIf="almaCourse && readingLists && readingLists.reading_list && readingLists.reading_list.length > 1" mat-flat-button type="button" color="primary" (click)="placeOnReserve(identifier.value, 'use_selected_list')">Place on Reserve</button>
-	  <button *ngIf="almaCourse && readingLists.reading_list && readingLists.reading_list.length == 1" mat-flat-button type="button" color="primary" (click)="placeOnReserve(identifier.value, readingLists.reading_list[0].id)">Place on Reserve</button>
-	  <button *ngIf="almaCourse && readingLists.reading_list == null" mat-flat-button type="button" color="primary" (click)="placeOnReserveAndCreateList(identifier.value)">Place on Reserve</button>
+		<button mat-flat-button type="button" color="secondary" (click)="clearForm()">{{ 'ares.clear' | translate }}</button>
+      <button mat-flat-button type="button" color="primary" (click)="search(identifier.value)">{{ 'ares.search' | translate }}</button>
+	  <button *ngIf="almaCourse && readingLists && readingLists.reading_list && readingLists.reading_list.length > 1" mat-flat-button type="button" color="primary" (click)="placeOnReserve(identifier.value, 'use_selected_list')">{{ 'ares.reserve' | translate }}</button>
+	  <button *ngIf="almaCourse && readingLists.reading_list && readingLists.reading_list.length == 1" mat-flat-button type="button" color="primary" (click)="placeOnReserve(identifier.value, readingLists.reading_list[0].id)">{{ 'ares.reserve' | translate }}</button>
+	  <button *ngIf="almaCourse && readingLists.reading_list == null" mat-flat-button type="button" color="primary" (click)="placeOnReserveAndCreateList(identifier.value)">{{ 'ares.reserve' | translate }}</button>
     </div> 
 	  
 <div class="loading-shade" *ngIf="running">
   <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
 </div>
     <form>
-      <h2>Look Up Request in Ares</h2>
-      <p>Enter the ID number of the reserve request in Ares.</p>
       <section class="settings-section">
         <mat-form-field>
-          <mat-label>Identifier</mat-label>
+          <mat-label>{{ 'ares.lookup_label' | translate }}</mat-label>
           <input matInput [formControl]="identifier">
         </mat-form-field>
       </section>
@@ -22,14 +20,14 @@
  
 	<mat-card *ngIf="almaCourse && readingLists">
 	<mat-card-header>
-	<mat-card-title>Reading List Information</mat-card-title>
+	<mat-card-title>{{ 'ares.reading_list_info' | translate }}</mat-card-title>
 	</mat-card-header>
  
 	<div *ngIf="almaCourse && readingLists && readingLists.reading_list && readingLists.reading_list.length > 1">
-	  <p>Choose a reading list.</p>
+	  <p>{{ 'ares.choose_list' | translate }}</p>
       <section class="settings-section">
         <mat-form-field>
-          <mat-label>Reading List</mat-label>
+          <mat-label>{{ 'ares.list' | translate }}</mat-label>
           <mat-select (valueChange)="changeValue($event)" [formControl]="readingLists.reading_list">
 		  <mat-option *ngFor="let list of readingLists.reading_list" [value]=list.id>{{list.name}}</mat-option>
 		  </mat-select>
@@ -38,53 +36,53 @@
 	</div>
 	
 	<div *ngIf="almaCourse && readingLists.reading_list && readingLists.reading_list.length == 1">
-	  <p>Course has exactly 1 reading list: {{readingLists.reading_list[0].name}}. Item will be placed on that reading list.</p>
+	  <p>{{ 'ares.one_list' | translate }} {{readingLists.reading_list[0].name}}. {{ 'ares.placed_on_list' | translate }}</p>
 	</div>
 	
 	<div *ngIf="almaCourse && readingLists.reading_list == null">
-	  <p>Course does not yet have a reading list. A new reading list will be created.</p>
+	  <p>{{ 'ares.no_list' | translate }}</p>
 	</div>
 	</mat-card>
 	
     <mat-card *ngIf="record">
       <mat-card-header>
-        <mat-card-title>Ares Item Information</mat-card-title>
+        <mat-card-title>{{ 'ares.request_info' | translate }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <ul>
-          <li><strong>Title: </strong> {{ record.title }}</li>
-          <li><strong>Author: </strong>{{ record.author }}</li>
+          <li><strong>{{ 'ares.title' | translate }}</strong> {{ record.title }}</li>
+          <li><strong>{{ 'ares.author' | translate }}</strong> {{ record.author }}</li>
         </ul>
       </mat-card-content>
     </mat-card>
 
 	  <mat-card *ngIf="aresCourse">
       <mat-card-header>
-        <mat-card-title>Ares Course Information</mat-card-title>
+        <mat-card-title>{{ 'ares.ares_course' | translate }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <ul>
-          <li><strong>Course Name: </strong> {{ aresCourse.name }}</li>
-          <li><strong>Instructor: </strong>{{ aresCourse.instructorDisplayName }}</li>
+          <li><strong>{{ 'ares.course' | translate }}</strong> {{ aresCourse.name }}</li>
+          <li><strong>{{ 'ares.instructor' | translate }}</strong>{{ aresCourse.instructorDisplayName }}</li>
         </ul>
       </mat-card-content>
 	  </mat-card>
 	  <mat-card *ngIf="!almaCourse && aresCourse">
       <mat-card-header>
-	  <mat-card-title>No Matching Course in Alma</mat-card-title>
+	  <mat-card-title>{{ 'ares.no_alma_match' | translate }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Please be sure the corresponding course exists in Alma and that the value in the Ares Registrar Course Id field is listed as one of the searchable IDs for the Alma course.</p>
+        <p>{{ 'ares.please_check' | translate }}</p>
       </mat-card-content>
     </mat-card> 
 	  <mat-card *ngIf="almaCourse">
       <mat-card-header>
-	  <mat-card-title>Alma Course Information</mat-card-title>
+	  <mat-card-title>{{ 'ares.alma_course' | translate }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <ul>
-          <li><strong>Course Name: </strong> {{ almaCourse.name }}</li>
-          <li><strong>Course Code: </strong>{{ almaCourse.code }}</li>
+          <li><strong>{{ 'ares.course' | translate }}</strong> {{ almaCourse.name }}</li>
+          <li><strong>{{ 'ares.course_code' | translate }}</strong> {{ almaCourse.code }}</li>
         </ul>
       </mat-card-content>
     </mat-card> 

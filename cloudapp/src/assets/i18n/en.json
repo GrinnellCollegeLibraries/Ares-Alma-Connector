@@ -2,7 +2,30 @@
 	"settings": {
 		"url": "Ares URL",
 		"api_key": "Ares API Key",
-		"linking_field": "Ares Linking Field"
+		"linking_field": "Ares Linking Field",
+		"linking_explain": "This connector depends upon a unique identifier for each course existing both in a specified field in Ares and in the Searchable IDs in Alma. Likely fields for the location of this unique identifier, which should be entered as the Ares Linking Field, are CourseCode, CourseNumber, ExternalCourseId, or RegistrarCourseId."
+	},
+	"ares": {
+		"clear": "Clear",
+		"search": "Search",
+		"reserve": "Place on Reserve",
+		"lookup_label": "Ares Request Identifier",
+		"reading_list_info": "Reading List Information",
+		"choose_list" : "Choose a reading list.",
+		"list": "Reading List",
+		"one_list": "Course has exactly 1 reading list:",
+		"placed_on_list": "Item will be placed on that reading list.",
+		"no_list": "Course does not yet have a reading list. A new reading list will be created.",
+		"request_info": "Ares Item Information",
+		"title": "Title:",
+		"author": "Author:",
+		"ares_course": "Ares Course Information",
+		"course": "Course Name:",
+		"instructor": "Instructor:",
+		"no_alma_match": "No Matching Course in Alma",
+		"please_check": "Please be sure the corresponding course exists in Alma and that the value in the Ares Linking Field in Settings is listed as one of the searchable IDs for the Alma course.",
+		"alma_course": "Alma Course Information",
+		"course_code": "Course Code:"
 	}
 }
 	
