@@ -28,6 +28,8 @@
 		"course_code": "Course Code:"
 	},
 	"alert": {
+		"no_config": "Please fill out all fields in the configuration form before using this app",
+		"no_item": "Please navigate to the record of the item to be placed on reserve first",
 		"no_record": "Record does not exist",
 		"no_ares_course": "Course does not exist in Ares",
 		"no_alma_course": "No matching course in Alma",

@@ -42,7 +42,8 @@ export class AresComponent implements OnInit {
     private http: HttpClient,
     private alert: AlertService,
 	private settingsService: CloudAppSettingsService,
-	private restService: CloudAppRestService
+	private restService: CloudAppRestService,
+	private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -57,6 +58,14 @@ export class AresComponent implements OnInit {
   }
 
   search(id) {
+	  if (this.settings.AresUrl == '' || this.settings.AresApiKey == '' || this.settings.AresLinkingField == '') {
+		  this.alert.error(this.translate.instant('alert.no_config'));
+		  return;
+	  }
+	  if (!this.itemIds) {
+		  this.alert.error(this.translate.instant('alert.no_item'));
+		  return;
+	  }
 	this.running = true;
     this.record = null; 
 	this.AresItemUrl = `${this.settings.AresUrl}/ares/webapi/Items/${id}`;
@@ -65,7 +74,7 @@ export class AresComponent implements OnInit {
 		this.aresCourseLookup(this.record.courseId);
 	}		, 
 	err => { 
-			this.alert.error(`{{ 'alert.no_record' | translate }}`);
+			this.alert.error(this.translate.instant('alert.no_record'));
 			this.running = false;
 		}
 	);
@@ -78,7 +87,7 @@ export class AresComponent implements OnInit {
 		this.aresCourse = res;
 		this.almaCourseLookup(this.aresCourse[this.settings.AresLinkingField]);
 	}, err => {
-		this.alert.error(`{{ 'alert.no_ares_course' | translate }}`);
+		this.alert.error(this.translate.instant('alert.no_ares_course'));
 		this.running = false;
 	}
 	);
@@ -89,7 +98,7 @@ export class AresComponent implements OnInit {
 		  this.almaCourse = res.course[0];
 		  this.readingListLookup(this.almaCourse.id);
 	  }, err => {
-		  this.alert.error(`{{ 'alert.no_alma_course' | translate }}`);
+		  this.alert.error(this.translate.instant('alert.no_alma_course'));
 		  this.running = false;		  
 	  }
 	);
@@ -98,7 +107,7 @@ export class AresComponent implements OnInit {
   readingListLookup(id) {
 	  this.restService.call(`/courses/${id}/reading-lists`).subscribe( res => {
 		  this.readingLists = res;
-	  }, err => this.alert.error(`{{ 'alert.list_error' | translate }}`) );
+	  }, err => this.alert.error(this.translate.instant('alert.list_error')) );
 	  this.running = false;
   }
 
@@ -141,11 +150,12 @@ export class AresComponent implements OnInit {
 				this.almaReadingList = res;
 				this.almaCourseId =  this.almaReadingList.link.split("/")[4];
 				this.addToList(this.almaReadingList.id, this.almaCourseId);
-			}, err => this.alert.error(`{{ 'alert.list_create_error' | translate }}`) );
+			}, err => this.alert.error(this.translate.instant('alert.list_create_error')) );
 	}
 	
 	addToList(almaReadingListId, almaCourseId) {
 		//Add to reading list in Alma
+
 		this.citation = `{
 			"status": {
 				"value": "Complete"
@@ -168,8 +178,8 @@ export class AresComponent implements OnInit {
 			}).subscribe( res => {
 				this.almaResult = res;
 				console.log(this.almaResult);
-				this.alert.success(`{{ 'alert.added' | translate }}`);
-			}, err => this.alert.error(`{{ 'alert.added_error' | translate }}`) );
+				this.alert.success(this.translate.instant('alert.added'));
+			}, err => this.alert.error(this.translate.instant('alert.added_error')) );
 	}
 	
 	routeInAres(aresItemId) {
@@ -177,9 +187,9 @@ export class AresComponent implements OnInit {
 		this.status = {'newStatus':'Item Available at Reserve Desk'};
 		this.http.post(this.AresRouteUrl, this.status, {headers: {'X-ARES-API-KEY': this.settings.AresApiKey, 'Content-Type': 'application/json'}}).subscribe( res => {
 			this.route = res;
-			this.alert.success(`{{ 'alert.new_ares_status' | translate }}: ${this.route.currentStatus}`);
+			this.alert.success(this.translate.instant('alert.new_ares_status')`: ${this.route.currentStatus}`);
 			this.clearForm();
-		}, err => this.alert.error(`{{ 'alert.error' | translate }}: ${err.statusText}`) );
+		}, err => this.alert.error(this.translate.instant('alert.error')`: ${err.statusText}`) );
 	}
 		
 	
