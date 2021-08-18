@@ -8,6 +8,7 @@ The workflow assumes the following:
 1. A reserve request already exists in Ares.
 2. The course for that reserve request exists in both Ares and Alma.
 3. There is a unique identifier for each course that exists both in Ares and in the Searchable IDs in Alma.
+4. If you’re using multiple reading lists per course in Alma, all of the reading lists for each course already exist. (If you only use one reading list per course, the cloud app will automatically create that reading list if it doesn’t already exist.)
 
 To use the app:
 1. Navigate to the Alma record for the requested item, preferably by doing a physical item search by barcode and scanning in the item.
