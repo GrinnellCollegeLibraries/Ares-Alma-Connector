@@ -5,7 +5,7 @@
    "author": "Grinnell College Libraries",
    "pages": {
       "settings": "/#/settings",
-      "config": "/#/config"
+      "config": "/#/configuration"
    },
    "contentSecurity": {
       "connectSrc": [

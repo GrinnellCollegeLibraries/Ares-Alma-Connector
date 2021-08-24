@@ -39,6 +39,12 @@
 		"added_error": "Problem adding item to reading list",
 		"new_ares_status": "New Ares status:",
 		"error": "Error:"
+	},
+	"configuration": {
+		"url": "Ares URL",
+		"api_key": "Ares API Key",
+		"linking_field": "Ares Linking Field",
+		"linking_explain": "This connector depends upon a unique identifier for each course existing both in a specified field in Ares and in the Searchable IDs in Alma. Likely fields for the location of this unique identifier, which should be entered as the Ares Linking Field, are CourseCode, CourseNumber, ExternalCourseId, or RegistrarCourseId."
 	}
 }
 	
