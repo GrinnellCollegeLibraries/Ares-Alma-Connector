@@ -1,0 +1,25 @@
+<div class="cloudapp-actions">
+<button mat-raised-button color="secondary" [routerLink]="['']"><mat-icon>arrow_back</mat-icon>Back</button>
+    <button mat-flat-button type="button" color="primary" (click)="save()" [disabled]="!(form?.dirty)">Save</button>
+</div>
+
+<div class="loading-shade" *ngIf="saving">
+  <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+</div>
+<div *ngIf="form">
+  <form [formGroup]="form">
+	<section class="configuration-section">
+	  <p><mat-label>{{ 'configuration.url' | translate }}:</mat-label>
+      <input matInput formControlName="AresUrl" /></p>
+  </section>
+	<section class="configuration-section">
+	  <p><mat-label>{{ 'configuration.api_key' | translate }}:</mat-label>
+      <input matInput formControlName="AresApiKey" /></p>
+  </section>
+	<section class="configuration-section">
+	  <p><mat-label>{{ 'configuration.linking_field' | translate }}:</mat-label>
+      <input matInput formControlName="AresLinkingField" /></p>
+	  <p>{{ 'configuration.linking_explain' | translate }}</p>
+  </section>
+  </form>
+</div>

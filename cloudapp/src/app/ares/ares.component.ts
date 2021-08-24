@@ -3,9 +3,9 @@ import { AppService } from '../app.service';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Settings } from '../models/settings';
+import { Configuration } from '../models/configuration';
 import { Subscription } from 'rxjs';
-import { CloudAppEventsService, AlertService, CloudAppSettingsService, CloudAppRestService, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib';
+import { CloudAppEventsService, AlertService, CloudAppConfigService, CloudAppRestService, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -19,7 +19,7 @@ export class AresComponent implements OnInit {
   record: any;
   aresCourse: any;
   almaCourse: any;
-  settings: Settings;
+  settings: Configuration;
   identifier = new FormControl('');
   AresItemUrl: any;
   AresCourseUrl: any;
@@ -41,14 +41,14 @@ export class AresComponent implements OnInit {
     private eventsService: CloudAppEventsService,
     private http: HttpClient,
     private alert: AlertService,
-	private settingsService: CloudAppSettingsService,
+	private configuration: CloudAppConfigService,
 	private restService: CloudAppRestService,
 	private translate: TranslateService
   ) { }
 
   ngOnInit() {
     this.appService.setTitle('Reaching out');
-	 this.settingsService.get().subscribe( settings => {this.settings = settings as Settings; }); 
+	 this.configuration.get().subscribe( settings => {this.settings = settings as Configuration; }); 
 	 this.pageLoad$ = this.eventsService.onPageLoad( pageInfo => {
 		const entities = (pageInfo.entities||[]).filter(e=>e.type==EntityType.ITEM);
 		if (entities.length > 0) {
