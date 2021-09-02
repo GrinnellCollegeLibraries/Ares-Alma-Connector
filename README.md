@@ -9,7 +9,7 @@ The workflow assumes the following:
 4. If you’re using multiple reading lists per course in Alma, all of the reading lists for each course already exist. (If you only use one reading list per course, the cloud app will automatically create that reading list if it doesn’t already exist.)
 
 To use the app:
-1. Navigate to the Alma record for the requested item, preferably by doing a physical item search by barcode and scanning in the item.
+1. Navigate to the Alma record for the requested item. The most convenient way to do so is likely to be doing a physical item search by barcode and scanning the item.
 2. Open the Ares-Alma-Connector Cloud App and enter the ID number for the Ares request.
 3. Confirm that the item and course information that appears is correct.
 4. If multiple reading lists for the course exist in Alma, choose a reading list.
