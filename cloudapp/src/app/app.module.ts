@@ -10,14 +10,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SettingsComponent } from './settings/settings.component';
 import { AresComponent } from './ares/ares.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SettingsComponent,
     AresComponent,
     ConfigurationComponent,
   ],

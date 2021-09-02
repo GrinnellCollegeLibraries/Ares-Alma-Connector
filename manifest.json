@@ -4,8 +4,11 @@
    "subtitle": "Connect a physical item in Alma to a reserve request in Ares",
    "author": "Grinnell College Libraries",
    "pages": {
-      "settings": "/#/settings",
       "config": "/#/configuration"
+   },
+   "icon": {
+      "type": "url",
+      "value": "/assets/A-A-Connector2.png"
    },
    "contentSecurity": {
       "connectSrc": [
