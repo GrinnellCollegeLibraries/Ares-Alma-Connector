@@ -12,7 +12,7 @@
    },
    "contentSecurity": {
       "connectSrc": [
-         "https://grinnell.ares.atlas-sys.com/"
+         "https://*.ares.atlas-sys.com/"
       ]
    }
 }
