@@ -28,14 +28,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     AlertModule,
     FormsModule,
     ReactiveFormsModule,     
-    CloudAppTranslateModule.forRoot(),
-	TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+    CloudAppTranslateModule.forRoot()
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'standard' } },
