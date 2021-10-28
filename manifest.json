@@ -12,7 +12,8 @@
    },
    "contentSecurity": {
       "connectSrc": [
-         "https://*.ares.atlas-sys.com/"
+         "https://*.ares.atlas-sys.com/",
+         "https://api.exldevnetwork.net"
       ]
    }
 }

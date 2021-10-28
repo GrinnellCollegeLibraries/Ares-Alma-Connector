@@ -58,39 +58,61 @@ export class AresComponent implements OnInit {
   }
 
   search(id) {
+	  let requestHeaders = null;
 	  if (this.settings.AresUrl == '' || this.settings.AresApiKey == '' || this.settings.AresLinkingField == '') {
 		  this.alert.error(this.translate.instant('alert.no_config'));
 		  return;
 	  }
 	  if (!this.itemIds) {
-		  this.alert.error(this.translate.instant('alert.no_item'));
+		  this.alert.error(this.translate.instant('alert.no_item'),  { autoClose: true })
 		  return;
 	  }
 	this.running = true;
     this.record = null; 
-	this.AresItemUrl = `${this.settings.AresUrl}/ares/webapi/Items/${id}`;
-    this.http.get(this.AresItemUrl, {headers: {'X-ARES-API-KEY': this.settings.AresApiKey}}).subscribe( res => {
-		this.record = res;
-		this.aresCourseLookup(this.record.courseId);
-	}		, 
-	err => { 
-			this.alert.error(this.translate.instant('alert.no_record'));
-			this.running = false;
-		}
-	);
+	if (this.settings.AresUrl.indexOf('.ares.atlas-sys.com') == -1) {
+		this.AresItemUrl = `https://api.exldevnetwork.net/proxy/ares/webapi/Items/${id}`;
+		this.eventsService.getAuthToken().subscribe(
+			authToken => {
+					requestHeaders = new HttpHeaders({
+					'X-ARES-API-KEY': this.settings.AresApiKey,	
+					'X-Proxy-Host': this.settings.AresUrl, 
+					'Authorization': `Bearer ${authToken}`
+				})
+				this.issueItemRequest (requestHeaders);
+			})
+	}
+	else {
+		this.AresItemUrl = `${this.settings.AresUrl}/ares/webapi/Items/${id}`;
+		requestHeaders = new HttpHeaders({
+			'X-ARES-API-KEY': this.settings.AresApiKey
+		})
+		this.issueItemRequest (requestHeaders);
+	}
   }
   
   aresCourseLookup(id) {
+	let requestHeaders = null;
 	this.aresCourse = null;
-	this.AresCourseUrl = `${this.settings.AresUrl}/ares/webapi/Courses/${id}`;  
-	this.http.get(this.AresCourseUrl, {headers: {'X-ARES-API-KEY': this.settings.AresApiKey}}).subscribe( res => {
-		this.aresCourse = res;
-		this.almaCourseLookup(this.aresCourse[this.settings.AresLinkingField]);
-	}, err => {
-		this.alert.error(this.translate.instant('alert.no_ares_course'));
-		this.running = false;
+	if (this.settings.AresUrl.indexOf('.ares.atlas-sys.com') == -1) {		
+		this.AresCourseUrl = `https://api.exldevnetwork.net/proxy/ares/webapi/Courses/${id}`; 
+		this.eventsService.getAuthToken().subscribe(
+			authToken => {
+				requestHeaders = new HttpHeaders({
+					'X-Proxy-Host': this.settings.AresUrl, 
+					'Authorization': `Bearer ${authToken}`,
+					'X-ARES-API-KEY': this.settings.AresApiKey
+				})
+				this.issueCourseRequest(requestHeaders);
+			}
+		)
 	}
-	);
+	else {
+		this.AresCourseUrl = `${this.settings.AresUrl}/ares/webapi/Courses/${id}`; 
+		requestHeaders = new HttpHeaders({
+			'X-ARES-API-KEY': this.settings.AresApiKey
+		})
+		this.issueCourseRequest (requestHeaders);
+	}
   }
   
   almaCourseLookup(id) {
@@ -205,4 +227,25 @@ export class AresComponent implements OnInit {
 		console.log(this.selectedReadingList);
 	}
 	
+	issueItemRequest (sHeaders) {
+		this.http.get(this.AresItemUrl, {headers: sHeaders}).subscribe( res => {
+			this.record = res;
+			this.aresCourseLookup(this.record.courseId);
+		}, 	err => { 
+				this.alert.error(this.translate.instant('alert.no_record'));
+				this.running = false;
+			}
+		);
+	}
+
+	issueCourseRequest(sHeaders) {
+		this.http.get(this.AresCourseUrl, {headers: sHeaders}).subscribe( res => {
+			this.aresCourse = res;
+			this.almaCourseLookup(this.aresCourse[this.settings.AresLinkingField]);
+		}, err => {
+				this.alert.error(this.translate.instant('alert.no_ares_course'));
+				this.running = false;
+			}
+		);
+	}
  }
